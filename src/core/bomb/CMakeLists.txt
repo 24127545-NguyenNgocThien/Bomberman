@@ -4,4 +4,5 @@ add_library(bomb_lib STATIC
 )
 target_include_directories(bomb_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../
 )

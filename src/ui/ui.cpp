@@ -1,25 +1,42 @@
 #include "ui.h"
 #include "raylib.h"
 
+Ui::Ui() :screenHeight(0),screenWidth(0), cellSize(0)
+{}
+
 Ui &Ui::getInstance()
 {
     static Ui instance;
     return instance;
 }
 
-void Ui::drawMap(const vector<vector<int>> &grid)
-{
-    for(int i = 0; i < grid.size(); ++i) {
-        vector<int> row = grid[i];
+void Ui::init(int scrWidth, int scrHeight, int cSize) {
+    screenWidth = scrWidth;
+    screenHeight = scrHeight;
+    cellSize = cSize;
+}
 
-        for(int j = 0; j < row.size(); ++j) {
-            int cell = grid[i][j];
+void Ui::drawMap(const Map& grid) {
+    for(int y = 0; y < grid.getHeight(); ++y) {
+        for(int x = 0; x < grid.getWidth(); ++x) {
+            Rectangle cell = {x * cellSize, y * cellSize, cellSize, cellSize};
 
-            //qui uoc 0: khoang trang; 1: ko the pha; 2: pha 1 lan; 3: pha 2 lan;
-            if(cell == 1) DrawRectangle(i * cellSize, j * cellSize, cellSize, cellSize, GRAY);
-            else if(cell == 2) DrawRectangle(i * cellSize, j * cellSize, cellSize, cellSize, BROWN);
-            else if(cell == 3) DrawRectangle(i * cellSize, j * cellSize, cellSize, cellSize, DARKBROWN);
-            else DrawRectangle(i * cellSize, j * cellSize, cellSize, cellSize, BLANK);
+            switch(grid.getTileType(x, y)) {
+            case 1:
+            case 2:
+            case 3:
+            default:
+                DrawRectangleRec(cell, DARKGRAY);
+                break;
+            }
         }
     }
+}
+
+void Ui::close() {
+
+}
+
+Ui::~Ui() {
+    close();
 }

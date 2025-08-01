@@ -36,12 +36,54 @@ void Map::loadMap(int id) {
     return;
 }
 
-Map::Map(int i) : id(i), fileName("map_") {
-    loadMap(id);
+Map::Map(int w, int h)
+    :width(w), height(h), id(0), fileName("map_")
+{
+    spawnPoints[0] = {1, 1};
+    spawnPoints[1] = {38, 28};
+    spawnPoints[2] = {38, 1};
+    spawnPoints[3] = {1, 28};
+}
+
+void Map::chooseMap(int id) {
+    this->id = id;
+    loadMap(this->id);
 }
 
 Map::~Map() {}
 
-const vector<vector<int>> &Map::getGrid() const {
-    return grid;
+// const vector<vector<int>> &Map::getGrid() const {
+//     return grid;
+// }
+
+bool Map::isWalkable(int x, int y) const {
+    return (grid[x][y] == 0);
+}
+
+void Map::destroyBlock(int x, int y) {
+    int cellType = grid[x][y];
+    if(cellType == 1 || cellType == 2)
+        grid[x][y]--;
+}
+
+int Map::getTileType(int x, int y) const {
+    return grid[x][y];
+}
+
+void Map::setTileType(int x, int y, int type) {
+    grid[x][y] = type;
+}
+
+std::pair<int, int> Map::getSpawnPoint(int id) {
+    std::pair<int, int> spawnPoint;
+    spawnPoint = spawnPoints[id];
+    return spawnPoint;
+}
+
+int Map::getWidth() const {
+    return width;
+}
+
+int Map::getHeight() const {
+    return height;
 }

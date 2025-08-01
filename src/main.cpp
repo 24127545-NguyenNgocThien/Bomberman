@@ -13,7 +13,7 @@ int main()
         BeginDrawing();
 
         ClearBackground(DARKBLUE);
-        myGame.Render();
+        myGame.render();
 
         EndDrawing();
     }

@@ -1,17 +1,36 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "map/map.h"
+
+class Item;
+class Bomb;
+
 class Player
 {
 private:
-    double x, y;
+    int x, y;
     double speed;
-    int numBomb;
+    int maxBombs;
+    int bombScope;
+    double health;
+    bool isAlive;
 
 public:
-    Player();
-    void CreateBomb();
-    void Move(const char& WASD);
+    char direction;
+
+    Player(int X, int Y);
+
+    Bomb* placeBomb(Map& grid);
+    void move(const Map& grid, char direction);
+    void takeDamage(double damage);
+    void colectItem(Item& item);
+    void update(double time, const Map& grid);
+
+    void increaseSpeed();
+    void increaseMaxBoms();
+    void increaseBombScope();
+
 };
 
 #endif // PLAYER_H

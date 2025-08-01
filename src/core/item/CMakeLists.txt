@@ -5,4 +5,5 @@ add_library(item_lib STATIC
 
 target_include_directories(item_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/../
 )

@@ -1,10 +1,20 @@
 #ifndef ITEM_H
 #define ITEM_H
 
-class item
+#include "player/player.h"
+
+class Item
 {
+private:
+    int x, y;
+    int type;
+    bool isActive;
+
 public:
-    item();
+    Item(int X, int Y, int type);
+
+    void applyEffect(Player& p);
+    void active();
 };
 
 #endif // ITEM_H
